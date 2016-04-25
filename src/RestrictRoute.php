@@ -2,7 +2,6 @@
 
 namespace DavidePastore\Slim\RestrictRoute;
 
-use DavidePastore\Slim\RestrictRoute\Exception\ForbiddenException;
 use Respect\Validation\Validator as v;
 
 /**
@@ -37,7 +36,6 @@ class RestrictRoute
     {
         $ipAddress = $request->getAttribute('ip_address');
         if ($this->options['ip'] && !v::ip($this->options['ip'])->validate($ipAddress)) {
-            //throw new ForbiddenException($request, $response);
             return $response->withStatus(401);
         }
 

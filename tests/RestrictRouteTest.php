@@ -42,9 +42,6 @@ class RestrictRouteTest extends \PHPUnit_Framework_TestCase
         $this->response = new Response();
     }
 
-    /**
-     * @expectedException     DavidePastore\Slim\RestrictRoute\Exception\ForbiddenException
-     */
     public function testRestrictedRoute()
     {
         $options = array(
@@ -63,11 +60,10 @@ class RestrictRouteTest extends \PHPUnit_Framework_TestCase
 
         $this->request = $ipAddressMw($this->request, $this->response, $nextRequest);
         $response = $mw($this->request, $this->response, $next);
+        $expected = 401;
+        $this->assertEquals($response->getStatusCode(), $expected);
     }
 
-    /**
-     * @expectedException     DavidePastore\Slim\RestrictRoute\Exception\ForbiddenException
-     */
     public function testRestrictedRouteWithRange()
     {
         $options = array(
@@ -86,6 +82,8 @@ class RestrictRouteTest extends \PHPUnit_Framework_TestCase
 
         $this->request = $ipAddressMw($this->request, $this->response, $nextRequest);
         $response = $mw($this->request, $this->response, $next);
+        $expected = 401;
+        $this->assertEquals($response->getStatusCode(), $expected);
     }
 
     public function testNotRestrictedRoute()
