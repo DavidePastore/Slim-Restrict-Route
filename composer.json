@@ -1,0 +1,33 @@
+{
+    "name": "davidepastore/slim-restrict-route",
+    "description": "A Slim middleware to restrict ip addresses that will access to your routes",
+    "keywords": ["slim","framework","middleware","ip", "address", "restriction", "restrict"],
+    "type": "library",
+    "authors": [
+        {
+            "name": "Davide Pastore",
+            "email": "pasdavide@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "akrabat/rka-ip-address-middleware": "^0.4.0",
+        "respect/validation": "^1.0"
+    },
+    "require-dev": {
+        "slim/slim": "~3.0",
+        "phpunit/phpunit": "^4.0",
+        "scrutinizer/ocular": "~1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "DavidePastore\\Slim\\RestrictRoute\\": "src"
+        }
+    },
+    "license" : "GPL-2.0+",
+    "autoload-dev": {
+        "psr-4": {
+            "DavidePastore\\Slim\\RestrictRoute\\Tests\\": "tests"
+        }
+    }
+}
