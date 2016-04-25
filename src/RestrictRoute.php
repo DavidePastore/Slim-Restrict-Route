@@ -37,7 +37,8 @@ class RestrictRoute
     {
         $ipAddress = $request->getAttribute('ip_address');
         if ($this->options['ip'] && !v::ip($this->options['ip'])->validate($ipAddress)) {
-            throw new ForbiddenException($request, $response);
+            //throw new ForbiddenException($request, $response);
+            return $response->withStatus(401);
         }
 
         return $next($request, $response);
