@@ -7,6 +7,7 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 
 [![Build Status][ico-phpeye]][link-phpeye]
+[![PSR2 Conformance][ico-styleci]][link-styleci]
 
 
 A slim middleware to restrict ip addresses that will access to your routes. It internally uses `Ip` Validator of [Respect/Validation][respect-validation] and [rka-ip-address-middleware][rka-ip-address-middleware].
@@ -105,6 +106,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/davidepastore/Slim-Restrict-Route.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/davidepastore/slim-restrict-route.svg?style=flat-square
 [ico-phpeye]: http://php-eye.com/badge/DavidePastore/Slim-Restrict-Route/tested.svg?style=flat-square
+[ico-styleci]: https://styleci.io/repos/57071167/shield
 
 [link-packagist]: https://packagist.org/packages/davidepastore/slim-restrict-route
 [link-travis]: https://travis-ci.org/DavidePastore/Slim-Restrict-Route
@@ -112,3 +114,4 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 [link-code-quality]: https://scrutinizer-ci.com/g/DavidePastore/Slim-Restrict-Route
 [link-downloads]: https://packagist.org/packages/davidepastore/slim-restrict-route
 [link-phpeye]: http://php-eye.com/package/DavidePastore/Slim-Restrict-Route
+[link-styleci]: https://styleci.io/repos/57071167/
