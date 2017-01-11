@@ -26,111 +26,54 @@ class RestrictRouteTest extends \PHPUnit_Framework_TestCase
      */
     protected $response;
 
+    protected $headers;
+
+    protected $serverParams;
+
+    protected $body;
+
     /**
      * Run before each test.
      */
     public function setUp()
     {
         $uri = Uri::createFromString('https://example.com:443/foo/bar');
-        $headers = new Headers();
-        $headers->set('REMOTE_ADDR', '127.0.0.1');
-        $cookies = [];
+        $this->headers = new Headers();
+        $this->headers->set('REMOTE_ADDR', '127.0.0.1');
+        $this->cookies = [];
         $env = Environment::mock();
-        $serverParams = $env->all();
-        $body = new Body(fopen('php://temp', 'r+'));
-        $this->request = new Request('GET', $uri, $headers, $cookies, $serverParams, $body);
+        $this->serverParams = $env->all();
+        $this->body = new Body(fopen('php://temp', 'r+'));
         $this->response = new Response();
+        $this->request = new Request('GET', $uri, $this->headers, $this->cookies, $this->serverParams, $this->body);
     }
 
-    public function testRestrictedRoute()
+    /**
+     * @dataProvider locationProvider
+     */
+    public function testLocation($url)
     {
         $options = array(
           'ip' => '192.*',
         );
-        $ipAddressMw = new \RKA\Middleware\IpAddress();
         $mw = new RestrictRoute($options);
 
         $next = function ($req, $res) {
             return $res;
         };
-
-        $nextRequest = function ($req, $res) {
-            return $req;
-        };
-
-        $this->request = $ipAddressMw($this->request, $this->response, $nextRequest);
-        $response = $mw($this->request, $this->response, $next);
-        $expected = 401;
-        $this->assertEquals($response->getStatusCode(), $expected);
+        $uri = Uri::createFromString('https://example.com:443/foo/bar?redirect=' . $url);
+        $this->request = new Request('GET', $uri, $this->headers, $this->cookies, $this->serverParams, $this->body);
+        $redirect = $mw($this->request, $this->response, $next);
+        $location = $redirect->getHeader('Location');
+        $this->assertEquals($redirect->getStatusCode(), 200);
+        $this->assertEquals(count($location), 1);
+        $this->assertEquals($location[0], $url);
     }
 
-    public function testRestrictedRouteWithRange()
-    {
-        $options = array(
-          'ip' => '192.0.0.0-192.255.255.255',
-        );
-        $ipAddressMw = new \RKA\Middleware\IpAddress();
-        $mw = new RestrictRoute($options);
-
-        $next = function ($req, $res) {
-            return $res;
-        };
-
-        $nextRequest = function ($req, $res) {
-            return $req;
-        };
-
-        $this->request = $ipAddressMw($this->request, $this->response, $nextRequest);
-        $response = $mw($this->request, $this->response, $next);
-        $expected = 401;
-        $this->assertEquals($response->getStatusCode(), $expected);
-    }
-
-    public function testNotRestrictedRoute()
-    {
-        $options = array(
-          'ip' => '127.0.0.*',
-        );
-        $ipAddressMw = new \RKA\Middleware\IpAddress();
-        $mw = new RestrictRoute($options);
-
-        $next = function ($req, $res) {
-            return $res;
-        };
-
-        $nextRequest = function ($req, $res) {
-            return $req;
-        };
-
-        $this->request = $ipAddressMw($this->request, $this->response, $nextRequest);
-        $response = $mw($this->request, $this->response, $next);
-        $expected = 200;
-        $this->assertEquals($response->getStatusCode(), $expected);
-    }
-
-    public function testSetOptions()
-    {
-        $options = array(
-          'ip' => '127.*',
-        );
-        $ipAddressMw = new \RKA\Middleware\IpAddress();
-        $mw = new RestrictRoute($options);
-
-        $next = function ($req, $res) {
-            return $res;
-        };
-
-        $nextRequest = function ($req, $res) {
-            return $req;
-        };
-
-        $this->request = $ipAddressMw($this->request, $this->response, $nextRequest);
-        $response = $mw($this->request, $this->response, $next);
-        $expectedOptions = array(
-          'ip' => '192.168.0.1',
-        );
-        $mw->setOptions($expectedOptions);
-        $options = $mw->getOptions();
-        $this->assertEquals($options, $expectedOptions);
+    public function locationProvider(){
+      return [
+        ['http://www.google.it'],
+        ['http://stackoverflow.com/'],
+      ];
     }
 }

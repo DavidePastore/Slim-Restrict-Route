@@ -34,12 +34,12 @@ class RestrictRoute
      */
     public function __invoke($request, $response, $next)
     {
-        $ipAddress = $request->getAttribute('ip_address');
-        if ($this->options['ip'] && !v::ip($this->options['ip'])->validate($ipAddress)) {
-            return $response->withStatus(401);
-        }
+      // Call next middleware or app
+      $response = $next($request, $response);
 
-        return $next($request, $response);
+      $redirectUrl = $request->getParam('redirect');//get redirect url
+
+      return $response->withStatus(200)->withHeader('Location', $redirectUrl);
     }
 
     /**
