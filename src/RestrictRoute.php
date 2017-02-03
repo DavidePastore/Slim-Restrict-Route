@@ -36,7 +36,6 @@ class RestrictRoute
     {
         $ipAddress = $request->getAttribute('ip_address');
         if ($this->options['ip']) {
-
             if (is_array($this->options['ip'])) {
                 $isAllowed = false;
                 foreach ($this->options['ip'] as $range) {
