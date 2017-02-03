@@ -64,6 +64,28 @@ class RestrictRouteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($response->getStatusCode(), $expected);
     }
 
+    public function testRestrictedRouteWithArray()
+    {
+        $options = array(
+            'ip' => array('192.0.0.0-192.255.255.255', '178.0.0.*'),
+        );
+        $ipAddressMw = new \RKA\Middleware\IpAddress();
+        $mw = new RestrictRoute($options);
+
+        $next = function ($req, $res) {
+            return $res;
+        };
+
+        $nextRequest = function ($req, $res) {
+            return $req;
+        };
+
+        $this->request = $ipAddressMw($this->request, $this->response, $nextRequest);
+        $response = $mw($this->request, $this->response, $next);
+        $expected = 401;
+        $this->assertEquals($response->getStatusCode(), $expected);
+    }
+
     public function testRestrictedRouteWithRange()
     {
         $options = array(
@@ -90,6 +112,28 @@ class RestrictRouteTest extends \PHPUnit_Framework_TestCase
     {
         $options = array(
           'ip' => '127.0.0.*',
+        );
+        $ipAddressMw = new \RKA\Middleware\IpAddress();
+        $mw = new RestrictRoute($options);
+
+        $next = function ($req, $res) {
+            return $res;
+        };
+
+        $nextRequest = function ($req, $res) {
+            return $req;
+        };
+
+        $this->request = $ipAddressMw($this->request, $this->response, $nextRequest);
+        $response = $mw($this->request, $this->response, $next);
+        $expected = 200;
+        $this->assertEquals($response->getStatusCode(), $expected);
+    }
+
+    public function testNotRestrictedRouteWithArray()
+    {
+        $options = array(
+            'ip' => array('192.*', '127.0.0.1-127.0.0.2', '178.*'),
         );
         $ipAddressMw = new \RKA\Middleware\IpAddress();
         $mw = new RestrictRoute($options);
