@@ -47,7 +47,7 @@ class RestrictRoute
                 if ($isAllowed === false) {
                     return $response->withStatus(401);
                 }
-            } elseif(!v::ip($this->options['ip'])->validate($ipAddress)) {
+            } elseif (!v::ip($this->options['ip'])->validate($ipAddress)) {
                 return $response->withStatus(401);
             }
         }
