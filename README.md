@@ -79,7 +79,8 @@ $app->run();
 You can restrict route using a different value of `ip` in the `options` given to `\RestrictRoute`:
 * any of the filters provided by PHP regarding `FILTER_VALIDATE_IP` (e.g.: `FILTER_FLAG_NO_PRIV_RANGE`);
 * asterisk (`*`) to filter ip that are in the given subnet (e.g.: `192.*`);
-* ranges (`-`) to filter ip that are in the given range (e.g.: `192.168.0.0-192.168.255.255`)
+* ranges (`-`) to filter ip that are in the given range (e.g.: `192.168.0.0-192.168.255.255`);
+* array of ranges to filter ip (e.g.: `array('192.0.0.0-192.255.255.255', '178.0.0.*')`);
 
 You can find more syntax information on the `Ip` validator [documentation](https://github.com/Respect/Validation/blob/master/docs/Ip.md) and in its [Unit Test class](https://github.com/Respect/Validation/blob/master/tests/unit/Rules/IpTest.php).
 
