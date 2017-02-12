@@ -35,8 +35,20 @@ class RestrictRoute
     public function __invoke($request, $response, $next)
     {
         $ipAddress = $request->getAttribute('ip_address');
-        if ($this->options['ip'] && !v::ip($this->options['ip'])->validate($ipAddress)) {
-            return $response->withStatus(401);
+        if ($this->options['ip']) {
+            if (is_array($this->options['ip'])) {
+                $isAllowed = false;
+                foreach ($this->options['ip'] as $range) {
+                    if (v::ip($range)->validate($ipAddress)) {
+                        $isAllowed = true;
+                    }
+                }
+                if ($isAllowed === false) {
+                    return $response->withStatus(401);
+                }
+            } elseif (!v::ip($this->options['ip'])->validate($ipAddress)) {
+                return $response->withStatus(401);
+            }
         }
 
         return $next($request, $response);
