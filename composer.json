@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "akrabat/rka-ip-address-middleware": "~0.4",
+        "akrabat/ip-address-middleware": "~0.4",
         "respect/validation": "^1.0"
     },
     "require-dev": {
