@@ -15,6 +15,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # ocular needs git history to upload coverage
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
