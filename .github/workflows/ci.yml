@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.2', '7.3', '7.4']
+        php: ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5']
 
     steps:
       - uses: actions/checkout@v4
@@ -31,6 +31,6 @@ jobs:
         run: vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
       - name: Upload coverage to Scrutinizer
-        if: matrix.php == '7.4'
+        if: matrix.php == '8.5'
         continue-on-error: true
         run: php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
