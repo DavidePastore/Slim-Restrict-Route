@@ -1,7 +1,7 @@
 # Slim Framework Restrict Route
 
 [![Latest version][ico-version]][link-packagist]
-[![Build Status][ico-travis]][link-travis]
+[![Build Status][ico-build]][link-build]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
@@ -101,14 +101,14 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 [respect-validation]: https://github.com/Respect/Validation/
 [rka-ip-address-middleware]: https://github.com/akrabat/rka-ip-address-middleware
 [ico-version]: https://img.shields.io/packagist/v/DavidePastore/Slim-Restrict-Route.svg?style=flat-square
-[ico-travis]: https://travis-ci.org/DavidePastore/Slim-Restrict-Route.svg?branch=master
+[ico-build]: https://github.com/DavidePastore/Slim-Restrict-Route/actions/workflows/ci.yml/badge.svg?branch=master
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/DavidePastore/Slim-Restrict-Route.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/davidepastore/Slim-Restrict-Route.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/davidepastore/slim-restrict-route.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/57071167/shield
 
 [link-packagist]: https://packagist.org/packages/davidepastore/slim-restrict-route
-[link-travis]: https://travis-ci.org/DavidePastore/Slim-Restrict-Route
+[link-build]: https://github.com/DavidePastore/Slim-Restrict-Route/actions/workflows/ci.yml
 [link-scrutinizer]: https://scrutinizer-ci.com/g/DavidePastore/Slim-Restrict-Route/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/DavidePastore/Slim-Restrict-Route
 [link-downloads]: https://packagist.org/packages/davidepastore/slim-restrict-route
