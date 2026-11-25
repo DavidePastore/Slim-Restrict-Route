@@ -22,8 +22,12 @@ jobs:
           php-version: ${{ matrix.php }}
           coverage: xdebug
 
+      # PHPUnit 4.x (dev-only) has security advisories that newer Composer
+      # versions block by default; this doesn't affect users of the library.
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
+        env:
+          COMPOSER_NO_SECURITY_BLOCKING: 1
 
       - name: Run tests
         run: vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
